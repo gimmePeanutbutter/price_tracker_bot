@@ -1,0 +1,8 @@
+import requests
+
+def testdis():
+    url = 'https://discord.com/api/webhooks/1452066365811982522/lg1JnyJpOLaNyqN8-3GrDPPVleQ6RieM46yLeWGPxtkmlAkW96I0pNdeSKsdFQl5rOoU'
+    text = {"content":"Hi"}
+    requests.post(url,json=text)
+    print("done")
+
