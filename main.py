@@ -5,11 +5,13 @@ from selenium.webdriver.common.by import By
 import requests
 from selenium.webdriver.chrome.options import Options
 import time
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 
 chorme_option = Options()
 chorme_option.add_argument("--headless")
 chorme_option.add_argument("--disable-gpu")
+chorme_option.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service,options=chorme_option)
@@ -23,6 +25,10 @@ products={
     "name":"HONEYWELL WIRELESS SCANNER",
     "URL":"https://www.jib.co.th/web/product/readProduct/70109/2078/HONEYWELL-WIRELESS-SCANNER-%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2-%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94-1D-%E0%B9%81%E0%B8%A5%E0%B8%B0-2D--HH492-R1-1USB-5-",
     "target_price":"9000"
+},{
+    "name":"ACER ASPIRE LITE 15 AL15-41P-R47V (SILVER)",
+    "URL":"https://www.jib.co.th/web/product/readProduct/74431/32/NOTEBOOK--%E0%B9%82%E0%B8%99%E0%B9%89%E0%B8%95%E0%B8%9A%E0%B8%B8%E0%B9%8A%E0%B8%84--ACER-ASPIRE-LITE-15-AL15-41P-R47V--SILVER-",
+    "target_price":"1000000"
 }
 
 
@@ -40,15 +46,20 @@ while True:
         try:
             driver.get(i["URL"])
             
-            price = driver.find_element(By.XPATH,'//*[@id="price_box"]/div[4]/div/div/div[1]/strong')
-
+            wait = WebDriverWait(driver,10)
+            price = wait.until(ec.visibility_of_element_located((By.XPATH,'//*[@id="price_box"]/div[4]/div/div/div[1]/strong')))
             price_string = price.text
             real_price = int(price_string.replace(",",""))
            
             if real_price < int(i["target_price"]):
-                print("Cheap now let's buy")
-                msg = f"{i['name']} is now {real_price} buy now!"
-                discord_alert(msg)
+                print("Price is good checking status....")
+                buy_button = driver.find_elements(By.XPATH,'//*[@id="price_box"]/div[8]/div/div/div')
+                if len(buy_button) >0:
+                     print('In stock sending alert')
+                     msg = f"{i['name']} is now {real_price} buy now!"
+                     discord_alert(msg)
+                else:
+                    print("product currently OUT OF STOCK.")
             else:
                 print("too expensive")
 
@@ -56,6 +67,6 @@ while True:
             print(f"Error {e}")
         
         time.sleep(2)
-        print("scan complete waiting")
+    print("scan complete waiting")
     time.sleep(15)
 
