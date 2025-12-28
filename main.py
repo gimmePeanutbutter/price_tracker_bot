@@ -3,34 +3,28 @@ import time
 
 discord_url = 'https://discord.com/api/webhooks/1452066365811982522/lg1JnyJpOLaNyqN8-3GrDPPVleQ6RieM46yLeWGPxtkmlAkW96I0pNdeSKsdFQl5rOoU'
 
-products=[{
-    "name":" INNO3D GEFORCE RTX 5070 TWIN X2 OC WHITE",
-    "URL":"https://www.jib.co.th/web/product/readProduct/75148/2988/VGA--%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%94%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87%E0%B8%9C%E0%B8%A5--INNO3D-GEFORCE-RTX-5070-TWIN-X2-OC-WHITE---12GB-GDDR7--N50702-12D7X-195064W-",
-    "target_price":"17500"
-},{
-    "name":"HONEYWELL WIRELESS SCANNER",
-    "URL":"https://www.jib.co.th/web/product/readProduct/70109/2078/HONEYWELL-WIRELESS-SCANNER-%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2-%E0%B8%AA%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%9A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%82%E0%B8%84%E0%B9%89%E0%B8%94-1D-%E0%B9%81%E0%B8%A5%E0%B8%B0-2D--HH492-R1-1USB-5-",
-    "target_price":"9000"
-},{
-    "name":"ACER ASPIRE LITE 15 AL15-41P-R47V (SILVER)",
-    "URL":"https://www.jib.co.th/web/product/readProduct/74431/32/NOTEBOOK--%E0%B9%82%E0%B8%99%E0%B9%89%E0%B8%95%E0%B8%9A%E0%B8%B8%E0%B9%8A%E0%B8%84--ACER-ASPIRE-LITE-15-AL15-41P-R47V--SILVER-",
-    "target_price":"1000000"
-}]
-
 
 if __name__ == "__main__":
-    jib_bot = JIB_Scraper(discord_url)
     
+    while True:
+        print("\n--- Start hunting ---")
+        catagory_input = input("Please choose the catagory:\n1 for RTX 50 series\n2 for RTX 40 series\n> ").strip()
+        if catagory_input in {"1", "2"}:
+            break
+        print("Please choose only number that shown")
+
+    keyword_input = input("--Please insert keyword of product ---> : ")
+
     try:
         print("🤖 Bot Manager Started...")
-        while True:
-            print("\n--- Starting Scan Cycle ---")
+        jib_bot = JIB_Scraper(discord_url,catagory_input)
+        jib_bot.hunt_cheapest(keyword_input)
 
-            for i in products:
-                jib_bot.check_product(i["name"],i["URL"],i["target_price"])
+        for i in jib_bot.jib_product:
+            jib_bot.check_product(i["name"],i["URL"],i["target_price"])
             
-            print("Cycle complete. Sleeping for 60 seconds...")
-            time.sleep(60)
+        print("Cycle complete. Sleeping for 60 seconds...")
+        time.sleep(60)
     except KeyboardInterrupt:
         # This runs if you press Ctrl+C
         jib_bot.close()
