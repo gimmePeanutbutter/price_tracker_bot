@@ -13,19 +13,19 @@ if __name__ == "__main__":
             break
         print("Please choose only number that shown")
 
-    keyword_input = input("--Please insert keyword of product ---> : ")
+    keyword_input = input("--Please insert keyword of product ---> : ").strip()
+    while True:
+        try:
+            print("🤖 Bot Manager Started...")
+            jib_bot = JIB_Scraper(discord_url,catagory_input)
+            jib_bot.hunt_cheapest(keyword_input)
 
-    try:
-        print("🤖 Bot Manager Started...")
-        jib_bot = JIB_Scraper(discord_url,catagory_input)
-        jib_bot.hunt_cheapest(keyword_input)
-
-        for i in jib_bot.jib_product:
-            jib_bot.check_product(i["name"],i["URL"],i["target_price"])
-            
-        print("Cycle complete. Sleeping for 60 seconds...")
-        time.sleep(60)
-    except KeyboardInterrupt:
-        # This runs if you press Ctrl+C
-        jib_bot.close()
-        print("Bot Closed.")   
+            for i in jib_bot.jib_product:
+                jib_bot.check_product(i["name"],i["URL"],i["target_price"])
+                
+            print("Cycle complete. Sleeping for 60 seconds...")
+            time.sleep(10)
+        except KeyboardInterrupt:
+            # This runs if you press Ctrl+C
+            jib_bot.close()
+            print("Bot Closed.")   

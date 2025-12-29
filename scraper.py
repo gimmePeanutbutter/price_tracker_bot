@@ -87,18 +87,19 @@ class JIB_Scraper(Scraper):
                 name = name_element.text
 
                 if keyword.lower() in name.lower().strip():
-                    price_element = card.find_element(By.XPATH,'./div/div[4]/div/div[1]/div/div[7]/div/div/div/div/div/div[2]/p')
-                    price = int(price_element.text.replace(",",""))
+                    price_element = card.find_element(By.XPATH, './div/div[7]/div/div/div/div/div/div[2]/p')
+                    price = int(price_element.text.replace(",","").replace("-","").strip().replace(".",""))
                     link = card.find_element(By.XPATH,'./div/div[4]/div/a').get_attribute('href')
 
                     heapq.heappush(product_heap,(price,name,link))
-            except Exception:
+            except Exception as e:
+                print(e)
                 continue
 
 
         print("\n🏆 --- TOP 3 CHEAPEST DEALS ---")
         msg = f"Top 3 product cheapest price for {keyword}"
-        self.send_alert(msg)
+        
 
         count = 0
         limit = min(3,len(product_heap))
@@ -111,13 +112,7 @@ class JIB_Scraper(Scraper):
                          "URL": best_link,
                          "target_price": target_price}
             self.jib_product.append(temp_dict)
-            msg += f"\n\n{best_name} --\n{best_price} THB --\n{best_link}"
-            
             count += 1
         
-        if count > 0:
-            self.send_alert(msg)
-        else:
-            print("no item found")
 
         
