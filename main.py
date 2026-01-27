@@ -1,8 +1,7 @@
 from scraper import JIB_Scraper
 import time
 
-discord_url = 'https://discord.com/api/webhooks/1452066365811982522/lg1JnyJpOLaNyqN8-3GrDPPVleQ6RieM46yLeWGPxtkmlAkW96I0pNdeSKsdFQl5rOoU'
-
+discord_url = 'YOUR_NEW_DISCORD_WEBHOOK_URL_HERE'
 
 if __name__ == "__main__":
     
