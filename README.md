@@ -3,7 +3,7 @@
 I built this bot because I was tired of manually checking GPU prices on the JIB website every day. It automatically opens a browser in the background, finds the cheapest RTX cards, and sends a notification to my Discord if the price is good.
 
 ## What it does
-* **Auto-Search:** Opens JIB.co.th and searches for the GPU series or apple product I want .
+* **Auto-Search:** Opens JIB.co.th and searches for product (RTX Series, Apple devices) .
 * **Finds Deals:** Grabs the top 3 cheapest cards available in stock.
 * **Smart Alerts:** It calculates 90% of the current cheapest price. **If any product drops below that (10% discount), it sends a Discord alert immediately.**
 * **Background Mode:** Runs in "Headless Mode" so it doesn't pop up windows while I'm doing other work.
