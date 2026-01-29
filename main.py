@@ -2,13 +2,13 @@ from scraper import JIB_Scraper
 import time
 
 
-discord_url = 'YOUR_NEW_DISCORD_WEBHOOK_URL_HERE' 
+discord_url = 'https://discord.com/api/webhooks/1466278571520561205/E5qM1HdkE5k2AizBSUDC4Et_gtjtJMKeDJHYgAFTeHkArOKevWtZbpjBz6MVbn1yQ3Ko'
 
 if __name__ == "__main__":
     
     print("\n--- Start hunting ---")
     while True:
-        catagory_input = input("Please choose the category:\n1 for RTX 50 series\n2 for RTX 40 series\n> ").strip()
+        catagory_input = input("Please choose the category:\n1 for Graphics cards\n2 for Apple products\n> ").strip()
         if catagory_input in {"1", "2"}:
             break
         print("Please choose only number that shown")

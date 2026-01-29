@@ -44,12 +44,9 @@ class JIB_Scraper(Scraper):
         super().__init__(discord_url)
         
         if category_choice == '1':
-            self.category_url = 'https://www.jib.co.th/web/product/product_list/3/2988/0?price=&brand=&vga_sp_bus_type=&vga_sp_series='
+            self.category_url = 'https://www.jib.co.th/web/product/product_list/2/51'
         elif category_choice == '2':
-            self.category_url = 'https://www.jib.co.th/web/product/product_list/3/2615'
-        else:
-            self.category_url = 'https://www.jib.co.th/web/product/product_list/3/2615'
-
+            self.category_url = 'https://www.jib.co.th/web/product/product_list/1/1418'
         self.jib_product = []
 
     def hunt_cheapest(self, keyword):
@@ -71,7 +68,7 @@ class JIB_Scraper(Scraper):
                 name_element = card.find_element(By.XPATH, './div/div[4]/div/a/div/div/div/div/span')
                 name = name_element.text
 
-                if keyword.lower() in name.lower().strip():
+                if keyword.lower().replace(" ", "") in name.lower().replace(" ", ""):
                     price_element = card.find_element(By.XPATH, './div/div[7]/div/div/div/div/div/div[2]/p')
                     price_text = price_element.text.replace(",", "").replace("-", "").strip().replace(".", "")
                     
@@ -93,7 +90,7 @@ class JIB_Scraper(Scraper):
         while count < limit:
             best_price, best_name, best_link = heapq.heappop(product_heap)
             
-            target_price = int(best_price) 
+            target_price = int(best_price*0.95) 
             
             temp_dict = {
                 "name": best_name,
