@@ -5,7 +5,7 @@ I built this bot because I was tired of manually checking GPU prices on the JIB 
 ## What it does
 * **Auto-Search:** Opens JIB.co.th and searches for the GPU series I want (RTX 40/50).
 * **Finds Deals:** Grabs the top 3 cheapest cards available in stock.
-* **Smart Alerts:** It calculates 90% of the current cheapest price. **If any card drops below that (10% discount), it sends a Discord alert immediately.**
+* **Smart Alerts:** It calculates 90% of the current cheapest price. **If any product drops below that (10% discount), it sends a Discord alert immediately.**
 * **Background Mode:** Runs in "Headless Mode" so it doesn't pop up windows while I'm doing other work.
 
 ## How to use
