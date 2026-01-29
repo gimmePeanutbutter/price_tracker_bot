@@ -90,7 +90,7 @@ class JIB_Scraper(Scraper):
         while count < limit:
             best_price, best_name, best_link = heapq.heappop(product_heap)
             
-            target_price = int(best_price*0.95) 
+            target_price = int(best_price*0.9) 
             
             temp_dict = {
                 "name": best_name,

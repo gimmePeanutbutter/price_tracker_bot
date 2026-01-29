@@ -2,7 +2,7 @@ from scraper import JIB_Scraper
 import time
 
 
-discord_url = 'https://discord.com/api/webhooks/1466278571520561205/E5qM1HdkE5k2AizBSUDC4Et_gtjtJMKeDJHYgAFTeHkArOKevWtZbpjBz6MVbn1yQ3Ko'
+discord_url = 'https://discord.com/api/webhooks/1466284248255299765/vz8asphWjogobaatMh4rjQ053t26TaMLV3sd7Ds12H8_5DT-HuBYsIYAE9ZFZbe-ACjJ'
 
 if __name__ == "__main__":
     
